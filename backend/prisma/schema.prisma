@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SALES
+  WAREHOUSE
+  ACCOUNTS
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(SALES)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  inventoryLogs InventoryLog[] @relation("CreatedByUser")
+  challans      Challan[]      @relation("CreatedByUser")
+
+  @@map("users")
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Customer {
+  id           String         @id @default(uuid())
+  name         String
+  phone        String
+  email        String?
+  business     String?
+  gst          String?
+  address      String?
+  status       CustomerStatus @default(ACTIVE)
+  notes        String?
+  followUpDate DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  challans Challan[]
+
+  @@index([name])
+  @@index([status])
+  @@map("customers")
+}
+
+model Product {
+  id        String   @id @default(uuid())
+  name      String
+  sku       String   @unique
+  category  String?
+  price     Decimal  @db.Decimal(10, 2)
+  stock     Int      @default(0)
+  minStock  Int      @default(0)
+  warehouse String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  inventoryLogs InventoryLog[]
+  challanItems  ChallanItem[]
+
+  @@index([name])
+  @@map("products")
+}
+
+enum InventoryType {
+  IN
+  OUT
+}
+
+model InventoryLog {
+  id        String        @id @default(uuid())
+  productId String
+  product   Product       @relation(fields: [productId], references: [id])
+  quantity  Int
+  type      InventoryType
+  reason    String?
+  createdBy String
+  creator   User          @relation("CreatedByUser", fields: [createdBy], references: [id])
+  createdAt DateTime      @default(now())
+
+  @@index([productId])
+  @@map("inventory_log")
+}
+
+enum ChallanStatus {
+  DRAFT
+  CONFIRMED
+  CANCELLED
+}
+
+model Challan {
+  id         String        @id @default(uuid())
+  challanNo  String        @unique
+  customerId String
+  customer   Customer      @relation(fields: [customerId], references: [id])
+  status     ChallanStatus @default(DRAFT)
+  createdBy  String
+  creator    User          @relation("CreatedByUser", fields: [createdBy], references: [id])
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  items ChallanItem[]
+
+  @@map("challans")
+}
+
+model ChallanItem {
+  id        String  @id @default(uuid())
+  challanId String
+  challan   Challan @relation(fields: [challanId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  qty       Int
+
+  @@map("challan_items")
+}
