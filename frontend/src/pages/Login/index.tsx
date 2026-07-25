@@ -23,6 +23,11 @@ export default function Login() {
 
   return (
     <div className="d-flex align-items-center justify-content-center vh-100 bg-primary bg-gradient">
+      <div className="login-shape s1"></div>
+      <div className="login-shape s2"></div>
+      <div className="login-shape s3"></div>
+      <div className="login-shape s4"></div>
+      <div className="login-shape s5"></div>
       <div className="card shadow p-4" style={{ width: 380 }}>
         <h4 className="fw-bold mb-1">TechNova Distribution Management System</h4>
         <p className="text-muted small mb-3">Sign in to continue</p>
