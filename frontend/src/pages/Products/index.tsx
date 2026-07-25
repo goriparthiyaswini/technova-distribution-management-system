@@ -1,6 +1,7 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import * as productService from "../../services/product.service";
-import type { Product } from "../types";
+import type { Product } from "../../types";
+
 
 const EMPTY = { name: "", sku: "", category: "", price: 0, minStock: 5, warehouse: "Main Warehouse, Hyderabad" };
 

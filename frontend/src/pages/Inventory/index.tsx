@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import * as inventoryService from "../../services/inventory.service";
 import * as productService from "../../services/product.service";
 import type { Product, InventoryMovement } from "../../types";

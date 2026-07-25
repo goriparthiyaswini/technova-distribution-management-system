@@ -1,9 +1,10 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaTachometerAlt, FaUsers, FaBoxOpen, FaWarehouse, FaFileInvoice, FaUserShield } from "react-icons/fa";
 import { useAuth } from "../hooks/useAuth";
 import type { Role } from "../types";
 
-interface NavItem { to: string; label: string; icon: JSX.Element; roles?: Role[]; }
+interface NavItem { to: string; label: string; icon: React.JSX.Element; roles?: Role[]; }
 
 const NAV_ITEMS: NavItem[] = [
   { to: "/dashboard", label: "Dashboard", icon: <FaTachometerAlt /> },

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDashboardSummary } from "../../services/dashboard.service";
 import { useAuth } from "../../hooks/useAuth";
-import type { DashboardSummary } from "../types";
+import type { DashboardSummary } from "../../types";
 
 export default function Dashboard() {
   const { user } = useAuth();

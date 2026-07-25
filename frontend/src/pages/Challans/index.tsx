@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import * as challanService from "../../services/challan.service";
 import * as customerService from "../../services/customer.service";
 import * as productService from "../../services/product.service";

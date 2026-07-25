@@ -1,6 +1,6 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import * as customerService from "../../services/customer.service";
-import type { Customer } from "../types";
+import type { Customer } from "../../types";
 
 const EMPTY: Omit<Customer, "id"> = { name: "", phone: "", email: "", business: "", gst: "", address: "", status: "ACTIVE", notes: "" };
 

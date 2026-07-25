@@ -1,6 +1,6 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import * as userService from "../../services/user.service";
-import type { User, Role } from "../types";
+import type { User } from "../../types";
 
 const EMPTY = { name: "", email: "", password: "", role: "SALES" as const };
 
